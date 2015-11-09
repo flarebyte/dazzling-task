@@ -37,5 +37,10 @@
     "prepublish": "gulp prepublish",
     "test": "gulp"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "joi": "^7.0.0",
+    "lodash": "^3.10.1",
+    "string": "^3.3.1"
+  }
 }
