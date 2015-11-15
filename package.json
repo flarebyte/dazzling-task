@@ -1,6 +1,6 @@
 {
   "name": "dazzling-task",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Customisable task manager toolkit",
   "homepage": "https://github.com/flarebyte/dazzling-task",
   "author": {
@@ -20,17 +20,18 @@
   ],
   "repository": "https://github.com/flarebyte/dazzling-task.git",
   "devDependencies": {
+    "babel-core": "^5.5.0",
+    "del": "^2.0.2",
+    "eslint": "^1.9.0",
     "gulp": "^3.6.0",
+    "gulp-babel": "^5.1.0",
+    "gulp-coveralls": "^0.1.0",
     "gulp-eslint": "^1.0.0",
     "gulp-exclude-gitignore": "^1.0.0",
     "gulp-istanbul": "^0.9.0",
     "gulp-mocha": "^2.0.0",
-    "gulp-plumber": "^1.0.0",
     "gulp-nsp": "^0.4.5",
-    "gulp-coveralls": "^0.1.0",
-    "gulp-babel": "^5.1.0",
-    "del": "^2.0.2",
-    "babel-core": "^5.5.0",
+    "gulp-plumber": "^1.0.0",
     "isparta": "^3.0.3"
   },
   "scripts": {
@@ -40,6 +41,7 @@
   "license": "MIT",
   "dependencies": {
     "joi": "^7.0.0",
+    "async": "0.2.9",
     "lodash": "^3.10.1",
     "string": "^3.3.1"
   }
