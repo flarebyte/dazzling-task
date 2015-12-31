@@ -20,19 +20,19 @@
   ],
   "repository": "https://github.com/flarebyte/dazzling-task.git",
   "devDependencies": {
-    "babel-core": "^5.5.0",
+    "babel-core": "^6.3.26",
     "del": "^2.0.2",
-    "eslint": "^1.9.0",
+    "eslint": "^1.10.3",
     "gulp": "^3.6.0",
-    "gulp-babel": "^5.1.0",
+    "gulp-babel": "^6.1.1",
     "gulp-coveralls": "^0.1.0",
-    "gulp-eslint": "^1.0.0",
+    "gulp-eslint": "^1.1.1",
     "gulp-exclude-gitignore": "^1.0.0",
-    "gulp-istanbul": "^0.9.0",
-    "gulp-mocha": "^2.0.0",
-    "gulp-nsp": "^0.4.5",
+    "gulp-istanbul": "^0.10.3",
+    "gulp-mocha": "^2.2.0",
+    "gulp-nsp": "^2.2.1",
     "gulp-plumber": "^1.0.0",
-    "isparta": "^3.0.3"
+    "isparta": "^4.0.0"
   },
   "scripts": {
     "prepublish": "gulp prepublish",
@@ -40,8 +40,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "joi": "^7.0.0",
-    "async": "0.2.9",
+    "joi": "^7.1.0",
+    "async": "1.5.0",
     "lodash": "^3.10.1",
     "string": "^3.3.1"
   }
