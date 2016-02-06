@@ -1,6 +1,5 @@
-import chai from 'chai';
-const assert = chai.assert;
-import dazzlingTask from '../lib';
+import test from 'tape';
+import dazzlingTask from '../src';
 
 const OK = 'OK';
 
@@ -94,122 +93,123 @@ const basicConf = {
 };
 
 
-describe('dazzling-task', function () {
-  it('should validate configuration', function () {
-    var a = dazzlingTask(basicConf);
-    assert(a !== null, 'we expected this package author to add actual unit tests.');
-  });
-  it('should populate task params', function () {
-    const a = dazzlingTask(basicConf);
-    const result = a.asTaskParams('license');
-    const expected = [{
-      task: 'license',
-      command: 'readData',
-      tags: ['license'],
-      keys: ['metadata.license'],
-      data: ['MIT'],
-      general: {
-        tasks: {
-          author: {},
-          license: {},
-          metadata: {},
-          wouldFail: {}
-        }
+test('should validate configuration', (t) => {
+  t.plan(1);
+  var a = dazzlingTask(basicConf);
+  t.ok(a !== null, 'We can validate configuration');
+});
+
+test('should populate task params', (t) => {
+  t.plan(1);
+  const a = dazzlingTask(basicConf);
+  const result = a.asTaskParams('license');
+  const expected = [{
+    task: 'license',
+    command: 'readData',
+    tags: ['license'],
+    keys: ['metadata.license'],
+    data: ['MIT'],
+    general: {
+      tasks: {
+        author: {},
+        license: {},
+        metadata: {},
+        wouldFail: {}
       }
-    }];
-    assert.deepEqual(result, expected, 'License task params');
-  });
-  it('should produce sub tasks', function (done) {
-    const a = dazzlingTask(basicConf);
-    const subTasks = a.asSubTasks('license');
-    assert.isFunction(subTasks[0], 'license sub task');
-    subTasks[0](function (err, result) {
-      assert.isNull(err);
-      assert.deepEqual(result, OK);
-      assert.deepEqual(a.general().tasks.license, {
-        data: ['MIT'],
-        stage: 'license-readData',
-        status: OK
-      });
-      done();
-    });
-  });
-  it('should run a simple task such as license', function (done) {
-    var a = dazzlingTask(basicConf);
-    a.runTask('license', function (err, result) {
-      assert.isNull(err);
-      assert.deepEqual(result, [OK]);
-      assert.deepEqual(a.general().tasks.license, {
-        data: ['MIT'],
-        stage: 'license-readData',
-        status: OK
-      });
-      done();
-    });
-  });
-  it('should run a task with two sub tasks such as metadata', function (done) {
-    var a = dazzlingTask(basicConf);
-    a.runTask('metadata', function (err, result) {
-      assert.isNull(err);
-      assert.deepEqual(result, [OK, OK]);
-      assert.deepEqual(a.general().tasks.metadata, {
-        data: [{
-          author: 'olivier',
-          license: 'MIT'
-        }],
-        status: 'beautify',
-        stage: 'metadata-readData->metadata-beautify',
-        beauty: 'OK+beautify'
-      });
-      done();
-    });
-  });
+    }
+  }];
+  t.deepEqual(result, expected, 'License task params');
+});
 
-  it('should run a job', function (done) {
-    var a = dazzlingTask(basicConf);
-    a.run('go', function (err, result) {
-      assert.isNull(err);
-      assert.deepEqual(result, [[[OK, OK], [OK]], [[OK]]]);
-      assert.deepEqual(a.general().tasks.license, {
-        data: ['MIT'],
-        stage: 'license-readData',
-        status: OK
-      });
-      assert.deepEqual(a.general().tasks.author, {
-        data: ['olivier'],
-        stage: 'author-readData',
-        status: OK
-      });
-      assert.deepEqual(a.general().tasks.metadata, {
-        data: [{
-          author: 'olivier',
-          license: 'MIT'
-        }],
-        status: 'beautify',
-        stage: 'metadata-readData->metadata-beautify',
-        beauty: 'OK+beautify'
-      });
-      done();
-    });
+test('should produce sub tasks', (t) => {
+  t.plan(3);
+  const a = dazzlingTask(basicConf);
+  const subTasks = a.asSubTasks('license');
+  //assert.isFunction(subTasks[0], 'license sub task');
+  subTasks[0](function (err, result) {
+    t.ok(err === null, 'no error for task');
+    t.deepEqual(result, OK, 'result should be OK');
+    t.deepEqual(a.general().tasks.license, {
+      data: ['MIT'],
+      stage: 'license-readData',
+      status: OK
+    }, 'license data should be correct');
+    t.end();
   });
-
-  it('should recognize a failing job', function (done) {
-    var a = dazzlingTask(basicConf);
-    a.run('gofail', function (err) {
-      assert.equal(err, 'Error: wouldFail-willFail is failing');
-      assert.deepEqual(a.general().tasks.license, {});
-      assert.deepEqual(a.general().tasks.author, {});
-      assert.deepEqual(a.general().tasks.metadata, {
-        data: [{
-          author: 'olivier',
-          license: 'MIT'
-        }],
-        status: 'beautify',
-        stage: 'metadata-readData->metadata-beautify',
-        beauty: 'OK+beautify'
-      });
-      done();
-    });
+});
+test('should run a simple task such as license', (t) => {
+  t.plan(3);
+  var a = dazzlingTask(basicConf);
+  a.runTask('license', function (err, result) {
+    t.ok(err === null, 'no error for task');
+    t.deepEqual(result, [OK], 'result should be [OK]');
+    t.deepEqual(a.general().tasks.license, {
+      data: ['MIT'],
+      stage: 'license-readData',
+      status: OK
+    }, 'license data should be present');
+    t.end();
   });
+});
+test('should run a task with two sub tasks such as metadata', (t) => {
+  t.plan(3);
+  var a = dazzlingTask(basicConf);
+  a.runTask('metadata', function (err, result) {
+    t.ok(err === null, 'no error for task');
+    t.deepEqual(result, [OK, OK], 'result should be [OK,OK]');
+    t.deepEqual(a.general().tasks.metadata, {
+      data: [{
+        author: 'olivier',
+        license: 'MIT'
+      }],
+      status: 'beautify',
+      stage: 'metadata-readData->metadata-beautify',
+      beauty: 'OK+beautify'
+    }, 'metadata should be present');
+    t.end();
+  });
+});
 
+test('should run a job', (t) => {
+  t.plan(5);
+  var a = dazzlingTask(basicConf);
+  a.run('go', function (err, result) {
+    t.ok(err === null, 'no error for task');
+    t.deepEqual(result, [[[OK, OK], [OK]], [[OK]]], 'job should be OK');
+    t.deepEqual(a.general().tasks.license, {
+      data: ['MIT'],
+      stage: 'license-readData',
+      status: OK
+    }, 'license should be present');
+    t.deepEqual(a.general().tasks.author, {
+      data: ['olivier'],
+      stage: 'author-readData',
+      status: OK
+    }, 'author should be present');
+    t.deepEqual(a.general().tasks.metadata, {
+      data: [{
+        author: 'olivier',
+        license: 'MIT'
+      }],
+      status: 'beautify',
+      stage: 'metadata-readData->metadata-beautify',
+      beauty: 'OK+beautify'
+    }, 'metadata should be present');
+    t.end();
+  });
+});
+
+test('should recognize a failing job', (t) => {
+  t.plan(4);
+  var a = dazzlingTask(basicConf);
+  a.run('gofail', function (err) {
+    t.equal(err.message, 'wouldFail-willFail is failing', 'should have specific error');
+    t.deepEqual(a.general().tasks.license, {}, 'license should be present');
+    t.deepEqual(a.general().tasks.author, {}, 'author should be present');
+    t.deepEqual(a.general().tasks.metadata.data, [{
+        author: 'olivier',
+        license: 'MIT'
+      }], 'metadata should be present');
+    t.end();
+  });
 });
