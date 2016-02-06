@@ -1,8 +1,8 @@
 {
   "name": "dazzling-task",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Customisable task manager toolkit",
-  "homepage": "https://github.com/flarebyte/dazzling-task",
+  "homepage": "https://github.com/flarebyte/dazzling-task#readme",
   "author": {
     "name": "olivier huin",
     "email": "npm.olivier.huin@flarebyte.com",
@@ -47,7 +47,6 @@
   "bugs": {
     "url": "https://github.com/flarebyte/dazzling-task/issues"
   },
-  "homepage": "https://github.com/flarebyte/dazzling-task#readme",
   "devDependencies": {
     "babel-cli": "^6.4.5",
     "babel-core": "^6.4.5",
