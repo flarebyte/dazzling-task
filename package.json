@@ -6,10 +6,11 @@
   "author": {
     "name": "olivier huin",
     "email": "npm.olivier.huin@flarebyte.com",
-    "url": ""
+    "url": "https://github.com/olih"
   },
   "files": [
-    "dist"
+    "bin/",
+    "dist/"
   ],
   "main": "dist/index.js",
   "keywords": [
@@ -19,20 +20,8 @@
     "stream"
   ],
   "repository": "https://github.com/flarebyte/dazzling-task.git",
-  "devDependencies": {
-    "babel-cli": "^6.4.5",
-    "babel-core": "^6.4.5",
-    "babel-eslint": "*",
-    "babel-preset-es2015": "^6.3.13",
-    "coveralls": "*",
-    "dependency-check": "*",
-    "doctoc": "*",
-    "eslint": "*",
-    "isparta": "*",
-    "rimraf": "*",
-    "tap-spec": "*",
-    "tape": "*",
-    "watch": "*"
+  "engines": {
+    "node": ">=4.0.0"
   },
   "scripts": {
     "clean": "rimraf dist",
@@ -55,6 +44,25 @@
     "toc": "doctoc --github --title \"# Changelog\" CHANGELOG.md"
   },
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flarebyte/dazzling-task/issues"
+  },
+  "homepage": "https://github.com/flarebyte/dazzling-task#readme",
+  "devDependencies": {
+    "babel-cli": "^6.4.5",
+    "babel-core": "^6.4.5",
+    "babel-eslint": "*",
+    "babel-preset-es2015": "^6.3.13",
+    "coveralls": "*",
+    "dependency-check": "*",
+    "doctoc": "*",
+    "eslint": "*",
+    "isparta": "*",
+    "rimraf": "*",
+    "tap-spec": "*",
+    "tape": "*",
+    "watch": "*"
+  },
   "dependencies": {
     "joi": "^7.1.0",
     "async": "1.5.0",
