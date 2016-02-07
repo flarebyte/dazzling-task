@@ -65,7 +65,7 @@
   "dependencies": {
     "joi": "^7.1.0",
     "async": "1.5.0",
-    "lodash": "^3.10.1",
+    "lodash": "^4.2.1",
     "string": "^3.3.1"
   }
 }
